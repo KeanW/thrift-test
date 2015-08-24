@@ -86,7 +86,7 @@ console.log("Port requested " + process.env.PORT);
 
 try {
   server.listen(process.env.PORT || 9090, function () {
-  console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
+  console.log('Express server listening on %d', process.env.PORT);
 });
 }
 catch (ex)
