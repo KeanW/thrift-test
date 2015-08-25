@@ -80,7 +80,7 @@ var server = thrift.createServer(Calculator, {
     result(null);
   }
 
-}, { cors: [ {'*': true } ] });
+}, { tls: true, cors: [ {'*': true } ] });
 
 console.log("Port requested " + process.env.PORT);
 
