@@ -80,14 +80,12 @@ var server = thrift.createServer(Calculator, {
     result(null);
   }
 
-}, {});
+}, { cors: [ {'*': true } ] });
 
 console.log("Port requested " + process.env.PORT);
 
 try {
-  server.listen(process.env.PORT || 9090, function () {
-  console.log('Express server listening on %d', process.env.PORT);
-});
+  server.listen(process.env.PORT || 9090);
 }
 catch (ex)
 {
