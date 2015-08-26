@@ -84,7 +84,7 @@ var server = thrift.createServer(Calculator, {
     result(null);
   }
 
-}, { transport: ttransport.TFramedTransport});
+}, { transport: thrift.TFramedTransport});
 
 console.log("Port requested " + process.env.PORT);
 
