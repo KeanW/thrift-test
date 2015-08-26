@@ -24,6 +24,8 @@ var SharedStruct = require("./gen-nodejs/shared_types").SharedStruct;
 
 var data = {};
 
+var web_server = thrift.createWebServer({ cors: ['*'], files: ['index.html'] });
+
 var server = thrift.createServer(Calculator, {
   ping: function(result) {
     console.log("ping()");
@@ -80,12 +82,12 @@ var server = thrift.createServer(Calculator, {
     result(null);
   }
 
-}, { cors: ['*'] });
+}, { });
 
 console.log("Port requested " + process.env.PORT);
 
 try {
-  server.listen(process.env.PORT || 9090);
+  web_server.listen(process.env.PORT || 9090);
 }
 catch (ex)
 {
