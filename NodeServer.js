@@ -26,7 +26,7 @@ var SharedStruct = require("./gen-nodejs/shared_types").SharedStruct;
 
 var data = {};
 
-var web_server = thrift.createWebServer({ cors: ['*'], files: '.' });
+//var web_server = thrift.createWebServer({ cors: ['*'], files: '.' });
 
 var server = thrift.createServer(Calculator, {
   ping: function(result) {
