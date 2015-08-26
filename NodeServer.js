@@ -87,7 +87,7 @@ var server = thrift.createServer(Calculator, {
 console.log("Port requested " + process.env.PORT);
 
 try {
-  web_server.listen(process.env.PORT || 9090);
+  server.listen(process.env.PORT || 9090);
 }
 catch (ex)
 {
