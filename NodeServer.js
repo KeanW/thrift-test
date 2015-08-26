@@ -17,7 +17,7 @@
  * under the License.
  */
 
-//require('node-offline-debug');
+require('node-offline-debug');
 
 var thrift = require("thrift");
 var Calculator = require("./gen-nodejs/Calculator");
