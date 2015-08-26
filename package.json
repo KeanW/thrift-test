@@ -12,7 +12,8 @@
 		"postdepoly": "echo Thri Deployed"
 	},
 	"dependencies": {
- 		"thrift": "~0.9.2"
+ 		"thrift": "~0.9.2",
+		 "node-offline-debug": "1.0.x"
  	},
 	"engines": {
 		"node": "0.10.x"
