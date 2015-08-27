@@ -25,13 +25,14 @@ var ttypes = require('./gen-nodejs/tutorial_types');
 
 
 var options = {
-   transport: thrift.TBufferedTransport,
+   transport: thrift.TFramedTransport,
    protocol: thrift.TJSONProtocol,
-   path: "/calculator",
+   //path: "/calculator",
    headers: {"Connection": "close"}
 };
 
-var connection = thrift.createHttpConnection("thri.herokuapp.com", 80, options);
+var connection = thrift.createHttpConnection("localhost", 5000, options);
+//var connection = thrift.createHttpConnection("thri.herokuapp.com", 80, options);
 var client = thrift.createHttpClient(Calculator, connection);
 
 

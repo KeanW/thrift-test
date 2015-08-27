@@ -128,7 +128,7 @@ var server = thrift.createServer(Calculator, {
     result(null);
   }
 
-}, { transport: thrift.TBufferedTransport});
+}, { transport: thrift.TFramedTransport, protocol: thrift.TJSONProtocol });
 
 console.log("Port requested " + process.env.PORT);
 
