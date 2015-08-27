@@ -28,11 +28,13 @@ var ttypes = require("./gen-nodejs/tutorial_types");
 var SharedStruct = require("./gen-nodejs/shared_types").SharedStruct;
 
 var data = {};
-var clients = [];
 
 //var web_server = thrift.createWebServer({ cors: ['*'], files: '.' });
 
-  /*
+/*
+
+var clients = [];
+
 var server = net.createServer(function (data) {
   console.log(util.inspect(data));
   
