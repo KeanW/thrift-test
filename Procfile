@@ -1,1 +1,1 @@
-web: node --abort-on-uncaught-exception NodeServerPromise.js
+web: NODE_DEBUG=net node NodeServerPromise.js
