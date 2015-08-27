@@ -31,8 +31,8 @@ var options = {
    headers: {"Connection": "close"}
 };
 
-//var connection = thrift.createHttpConnection("localhost", 5000, options);
-var connection = thrift.createHttpConnection("thri.herokuapp.com", 80, options);
+var connection = thrift.createHttpConnection("localhost", 5000, options);
+//var connection = thrift.createHttpConnection("thri.herokuapp.com", 80, options);
 var client = thrift.createHttpClient(Calculator, connection);
 
 

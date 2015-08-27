@@ -72,63 +72,74 @@ var server = net.createServer(function (data) {
 });
 */
 
-var server = thrift.createServer(Calculator, {
-  ping: function(result) {
-    console.log("ping()");
-    result(null);
-  },
-
-  add: function(n1, n2, result) {
-    console.log("add(", n1, ",", n2, ")");
-    result(null, n1 + n2);
-  },
-
-  calculate: function(logid, work, result) {
-    console.log("calculate(", logid, ",", work, ")");
-
-    var val = 0;
-    if (work.op == ttypes.Operation.ADD) {
-      val = work.num1 + work.num2;
-    } else if (work.op === ttypes.Operation.SUBTRACT) {
-      val = work.num1 - work.num2;
-    } else if (work.op === ttypes.Operation.MULTIPLY) {
-      val = work.num1 * work.num2;
-    } else if (work.op === ttypes.Operation.DIVIDE) {
-      if (work.num2 === 0) {
-        var x = new ttypes.InvalidOperation();
-        x.whatOp = work.op;
-        x.why = 'Cannot divide by 0';
-        result(x);
-        return;
+var server = thrift.createWebServer(
+  {
+    files: "/",
+    services: {"/calculator":
+      {
+        processor: Calculator,
+        handler: {
+          ping: function(result) {
+            console.log("ping()");
+            result(null);
+          },
+        
+          add: function(n1, n2, result) {
+            console.log("add(", n1, ",", n2, ")");
+            result(null, n1 + n2);
+          },
+        
+          calculate: function(logid, work, result) {
+            console.log("calculate(", logid, ",", work, ")");
+        
+            var val = 0;
+            if (work.op == ttypes.Operation.ADD) {
+              val = work.num1 + work.num2;
+            } else if (work.op === ttypes.Operation.SUBTRACT) {
+              val = work.num1 - work.num2;
+            } else if (work.op === ttypes.Operation.MULTIPLY) {
+              val = work.num1 * work.num2;
+            } else if (work.op === ttypes.Operation.DIVIDE) {
+              if (work.num2 === 0) {
+                var x = new ttypes.InvalidOperation();
+                x.whatOp = work.op;
+                x.why = 'Cannot divide by 0';
+                result(x);
+                return;
+              }
+              val = work.num1 / work.num2;
+            } else {
+              var x = new ttypes.InvalidOperation();
+              x.whatOp = work.op;
+              x.why = 'Invalid operation';
+              result(x);
+              return;
+            }
+        
+            var entry = new SharedStruct();
+            entry.key = logid;
+            entry.value = ""+val;
+            data[logid] = entry;
+        
+            result(null, val);
+          },
+        
+          getStruct: function(key, result) {
+            console.log("getStruct(", key, ")");
+            result(null, data[key]);
+          },
+        
+          zip: function(result) {
+            console.log("zip()");
+            result(null);
+          }
+        },
+        transport: thrift.TFramedTransport,
+        protocol: thrift.TJSONProtocol
       }
-      val = work.num1 / work.num2;
-    } else {
-      var x = new ttypes.InvalidOperation();
-      x.whatOp = work.op;
-      x.why = 'Invalid operation';
-      result(x);
-      return;
-    }
-
-    var entry = new SharedStruct();
-    entry.key = logid;
-    entry.value = ""+val;
-    data[logid] = entry;
-
-    result(null, val);
-  },
-
-  getStruct: function(key, result) {
-    console.log("getStruct(", key, ")");
-    result(null, data[key]);
-  },
-
-  zip: function(result) {
-    console.log("zip()");
-    result(null);
-  }
-
-}, { transport: thrift.TFramedTransport, protocol: thrift.TJSONProtocol });
+    },
+  cors: ["*"]}
+);
 
 console.log("Port requested " + process.env.PORT);
 
