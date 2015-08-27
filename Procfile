@@ -1,1 +1,1 @@
-web: NODE_DEBUG=net node NodeServerPromise.js
+web: node NodeServerPromise.js

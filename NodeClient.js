@@ -18,27 +18,21 @@
  */
 
 var thrift = require('thrift');
-var ThriftTransports = require('thrift/transport');
-var ThriftProtocols = require('thrift/protocol');
+//var ThriftTransports = require('thrift/transport');
+//var ThriftProtocols = require('thrift/protocol');
 var Calculator = require('./gen-nodejs/Calculator');
 var ttypes = require('./gen-nodejs/tutorial_types');
 
 
-transport = ThriftTransports.TBufferedTransport()
-protocol = ThriftProtocols.TBinaryProtocol()
+var options = {
+   transport: thrift.TBufferedTransport,
+   protocol: thrift.TJSONProtocol,
+   path: "/calculator",
+   headers: {"Connection": "close"}
+};
 
-//var connection = thrift.createConnection("localhost", 5000, {
-var connection = thrift.createConnection("thri.herokuapp.com", 80, {
-  transport : transport,
-  protocol : protocol
-});
-
-connection.on('error', function(err) {
-  assert(false, err);
-});
-
-// Create a Calculator client with the connection
-var client = thrift.createClient(Calculator, connection);
+var connection = thrift.createHttpConnection("thri.herokuapp.com", 80, options);
+var client = thrift.createHttpClient(Calculator, connection);
 
 
 client.ping(function(err, response) {
