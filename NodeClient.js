@@ -27,7 +27,8 @@ var ttypes = require('./gen-nodejs/tutorial_types');
 transport = ThriftTransports.TBufferedTransport()
 protocol = ThriftProtocols.TBinaryProtocol()
 
-var connection = thrift.createConnection("localhost", 9090, {
+//var connection = thrift.createConnection("localhost", 5000, {
+var connection = thrift.createConnection("thri.herokuapp.com", 80, {
   transport : transport,
   protocol : protocol
 });

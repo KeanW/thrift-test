@@ -75,6 +75,6 @@ var server = thrift.createServer(Calculator, {
     console.log("zip()");
   }
 
-});
+}, {});
 
-server.listen(9090);
+server.listen(process.env.PORT || 9090);
