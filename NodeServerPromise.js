@@ -75,6 +75,6 @@ var server = thrift.createServer(Calculator, {
     console.log("zip()");
   }
 
-}, {});
+}, { transport: thrift.TBufferedTransport, protocol: thrift.TJSONProtocol});
 
 server.listen(process.env.PORT || 9090);
